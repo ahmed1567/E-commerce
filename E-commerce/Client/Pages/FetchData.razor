@@ -1,6 +1,8 @@
 ﻿@page "/fetchdata"
 @using E_commerce.Shared
+@using System.IdentityModel.Tokens.Jwt;
 @inject HttpClient Http
+@attribute [Authorize]
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -35,13 +37,18 @@ else
             }
         </tbody>
     </table>
+    <h1> @user</h1>
 }
 
 @code {
     private WeatherForecast[]? forecasts;
-
+    string Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9obmRvZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFobWVkQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2Nzc0NTI1MDcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIn0.F_Mo-Dtyal5Y15pBGj3TOI5VpkTSjfZ99EcuJvkAPzo";
+    string user = "";
     protected override async Task OnInitializedAsync()
     {
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9obmRvZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFobWVkQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2Nzc0NTI5MDgsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIn0.xE51xflFfR8_XTjescqmNzeW3Dfya5DXcfYOKf_Wyw0");
+        user = jwt.Claims.First(c => c.Type == "Email").Value;
+
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
 }

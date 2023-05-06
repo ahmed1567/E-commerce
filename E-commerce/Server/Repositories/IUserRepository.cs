@@ -1,5 +1,5 @@
 ﻿namespace Ecommerce.Server;
 
-public interface IUserRepository : IBaseSettingRepository<User>
+public interface IUserRepository :IBaseUserRepository<User>
 {
 }

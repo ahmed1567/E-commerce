@@ -2,6 +2,15 @@
 
 <PageTitle>Counter</PageTitle>
 
+@*<AuthorizeView Roles="Admin">
+    <Authorized>
+        The user: @context.User.FindFirst(ClaimTypes.Name).Value is authorized
+    </Authorized>
+    <NotAuthorized>
+        The User is not authorized
+    </NotAuthorized>
+</AuthorizeView>
+
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
@@ -11,8 +20,40 @@
 @code {
     private int currentCount = 0;
 
-    private void IncrementCount()
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+
+    private async Task IncrementCount()
     {
-        currentCount++;
+        var authState = await AuthState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+            currentCount++;
+        else
+            currentCount--;
     }
-}
+}*@
+
+
+<div class="d-flex flex-wrap flex-sm-wrap flex-md-nowrap flex-lg-nowrap px-5 ">
+
+    <div class="d-block  align-items-center  pt-5">             
+        <div class="description">                 
+            <h2><i class="fa-solid fa-sun px-1"></i>Humidity</h2>                 
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat fuga deleniti essesequi quis rerum consequuntur alias id? Molestiae autem soluta, maxime sunt nihil excepturi  sequi quis rerum consequuntur alias id? Molestiae autem soluta, maxime sunt nihil excepturi</p>                 
+            <a href="#" class="p-relative">Explore &rarr;</a>             
+        </div>             
+        </div>
+    <div class=" d-block align-items-center  pt-5">
+        <div class="description">                
+                <h2><i class="fa-solid fa-hand-holding-droplet px-1"></i>Temperatur</h2>                
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat fuga deleniti esse  se
+                equuntur alias id? Molestiae autem soluta, maxime sunt nihil excepturi  sequi quis rerum consequuntur alias id? Molestiae autem soluta, maxime sunt nihil excepturi
+            </p>
+            <a href="#" class="p-relative">Explore &rarr;</a>
+        </div>
+    </div>
+</div>
+
+

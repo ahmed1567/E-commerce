@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Newtonsoft.Json;
+using System.Xml;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -13,12 +15,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserUnit, UserUnit>();
 
+builder.Services.AddScoped<IVendorRepository, VendorRepository>();
+builder.Services.AddScoped<IVendorUnit, VendorUnit>();
+
+builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<IManagerUnit, ManagerUnit>();
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductUnit, ProductUnit>();
+
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryUnit, CategoryUnit>();
+
+
 
 
 

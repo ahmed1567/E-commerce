@@ -6,5 +6,6 @@ public class BaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
     public virtual void Configure(EntityTypeBuilder<TEntity> builder)
     {
         builder.Property(e => e.Id).IsRequired();
+        builder.Property(e=>e.Id).HasValueGenerator<GuidValueGenerator>();
     }
 }

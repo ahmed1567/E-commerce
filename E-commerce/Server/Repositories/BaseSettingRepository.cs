@@ -5,8 +5,11 @@ public class BaseSettingRepository<TEntity> : BaseRepository<TEntity>, IBaseSett
 {
     public BaseSettingRepository(ApplicationDbContext context) : base(context)
     {
-    }
 
-    public async Task<TEntity> SearchByName(string name)=>await _dbSet.FirstOrDefaultAsync(s=>s.Name == name) ??Activator.CreateInstance<TEntity>();
+    }
+    
+    public virtual async Task<IEnumerable<TEntity>> SearchArray(string name)=>await _dbSet.Where(S=>S.Name==name).ToListAsync() ?? Activator.CreateInstance<IEnumerable<TEntity>>();
+
+    public virtual async Task<TEntity> Search(string name) => await _dbSet.FirstOrDefaultAsync(S => S.Name == name) ??Activator.CreateInstance<TEntity>();
 
 }

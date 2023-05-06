@@ -1,0 +1,22 @@
+﻿@*@page "/addcategory"
+
+<h3 class="text-center">AddCategory</h3>
+
+<EditForm Model="@category" OnValidSubmit="@HandleValidSubmit">
+    <FluentValidationValidator />
+    <div class="form-group">
+        <label>Name</label>
+        <InputText class="form-control" id="name" @bind-Value="category.Name" />
+        <ValidationMessage For="@(()=>category.Name)" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</EditForm>
+
+@if (exception != "")
+{
+    <div class="alert alert-danger" role="alert">
+          @exception
+    </div>
+}
+
+*@

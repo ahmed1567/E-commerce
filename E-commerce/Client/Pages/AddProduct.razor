@@ -1,0 +1,52 @@
+﻿@*@page "/addproduct"
+<h3 class="text-center">AddProduct</h3>
+
+<EditForm Model="@product" OnValidSubmit="@HandleValidSubmit">
+    <FluentValidationValidator/>
+    <div class="form-group">
+        <label>Name</label>
+        <InputText  class="form-control"  id="name" @bind-Value="product.Name"  />
+        <ValidationMessage For="@(()=>product.Name)"/>
+    </div>    
+    
+    <div class="form-group">
+        <label>Description</label>
+        <InputTextArea  class="form-control"  id="name" @bind-Value="product.Description"  />
+        <ValidationMessage For="@(()=>product.Description)"/>
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <InputNumber class="form-control" @bind-Value="product.Price"></InputNumber>
+        <ValidationMessage For="@(()=>product.Price)" />
+    </div>    
+    
+    <div class="form-group">
+        <label>Quantity</label>
+        <InputNumber class="form-control" @bind-Value="product.Quantity"></InputNumber>
+        <ValidationMessage For="@(()=>product.Quantity)" />
+    </div>
+
+    <div class="form-group" >
+        <label> Categories </label>
+        <InputSelect class="form-select" @bind-Value="product.CategoryId">           
+            @foreach(var category in categories)
+            {
+                <option  value="@category.Id">@category.Name</option>
+            }
+        </InputSelect>
+
+    </div>
+
+    <div class="form-group">
+        <label>Image</label>
+        <InputTextArea class="form-control" id="name" @bind-Value="product.Image" />
+        <ValidationMessage For="@(()=>product.Image)" />
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</EditForm>
+
+
+*@

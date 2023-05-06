@@ -1,11 +1,12 @@
 ﻿namespace Ecommerce.Shared;
 
-public class User : BaseSettingEntity
+public class User : BaseUser
 {
-    public string? Email { get; set; }
-    public string? Address { get; set; }
-    public string? Mobile { get; set; }
-    public string? Password { get; set; }
+    public ICollection<Cart>? Carts { get; set; }
+    public  ICollection<Rating>? Ratings { get; set; }
 
+    public ICollection<Order>? Orders { get; set; }
+
+    public ICollection<SupportChat>? SupportChats { get; set; }
 
 }

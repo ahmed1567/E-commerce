@@ -3,5 +3,6 @@
 public interface IBaseSettingRepository<TEntity> : IBaseRepository<TEntity>
     where TEntity : BaseSettingEntity
 {
-    Task<TEntity> SearchByName(string name);
+    Task<IEnumerable<TEntity>> SearchArray(string name);
+    Task<TEntity> Search(string name);
 }

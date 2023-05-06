@@ -3,7 +3,7 @@
 [ApiController]
 
 
-public class UsersController : BaseSettingController<User>
+public class UsersController : BaseUserController<User>
 {
     public UsersController(IUserUnit unit) : base(unit)
     {
